@@ -1,0 +1,9 @@
+# tekton-sa.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tekton-sa
+  namespace: dev
+secrets:
+  - name: docker-registry-gio
+

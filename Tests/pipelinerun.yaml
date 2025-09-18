@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: hello-world-run-
+  namespace: dev
+spec:
+  pipelineRef:
+    name: hello-world-pipeline
+  params:
+    - name: commit-sha
+      value: test123
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: tekton-workspace-pvc
+  taskRunTemplate:
+    serviceAccountName: tekton-sa
+

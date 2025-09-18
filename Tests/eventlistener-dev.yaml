@@ -1,0 +1,13 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: github-event-listener-dev
+  namespace: dev
+spec:
+  serviceAccountName: tekton-sa
+  triggers:
+    - name: github-push
+      bindings:
+        - ref: github-push-binding
+      template:
+        ref: github-pr-template
