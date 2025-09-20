@@ -1,1 +1,2 @@
-/k8s/ @infra-team
+/k8s/dev/ @infra-team
+/k8s/qa/ @infra-team
