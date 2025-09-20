@@ -59,7 +59,7 @@ The [docs](../docs) folder contains detailed documentation to explain the soluti
 
 - [implementation.md](../Docs/implementation.md): A detailed explanation of the entire CI/CD process, from code commit to application deployment, including how namespace isolation and security measures are handled.
 
-- [Onboarding.md](../Docs/onboarding.md): Steps for New Services: A step-by-step guide on how to integrate a new application into the existing pipeline setup, outlining the responsibilities of both development and infrastructure teams.
+- [Onboarding.md](../Docs/onboarding.md): Steps for New Services: A step-by-step implementation guide of the entire setup, outlining the responsibilities of both development and infrastructure teams.
 
 - [troubleshooting.md](../Docs/troubleshooting.md) A guide to diagnosing and resolving common issues that may arise within the setup and pipeline, with practical tips for debugging failed runs.
 
