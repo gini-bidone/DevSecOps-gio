@@ -57,10 +57,10 @@ Working infrastructure-as-code files are placed under the **Tests** folder
 ### 📝 Project Documentation
 The [docs](../docs) folder contains detailed documentation to explain the solution's core components and processes.
 
-- [implementation.md](../implementation.md): A detailed explanation of the entire CI/CD process, from code commit to application deployment, including how namespace isolation and security measures are handled.
+- [implementation.md](../Docs/implementation.md): A detailed explanation of the entire CI/CD process, from code commit to application deployment, including how namespace isolation and security measures are handled.
 
-- [Onboarding.md](../onboarding.md): Steps for New Services: A step-by-step guide on how to integrate a new application into the existing pipeline setup, outlining the responsibilities of both development and infrastructure teams.
+- [Onboarding.md](../Docs/onboarding.md): Steps for New Services: A step-by-step guide on how to integrate a new application into the existing pipeline setup, outlining the responsibilities of both development and infrastructure teams.
 
-- [troubleshooting.md](../troubleshooting.md) A guide to diagnosing and resolving common issues that may arise within the setup and pipeline, with practical tips for debugging failed runs.
+- [troubleshooting.md](../Docs/troubleshooting.md) A guide to diagnosing and resolving common issues that may arise within the setup and pipeline, with practical tips for debugging failed runs.
 
-- [future-improvements.md](../future-improvements.ms): A discussion of potential enhancements, such as adopting a GitOps workflow with ArgoCD, and implementing a more robust testing and monitoring strategy.
+- [future-improvements.md](../Docs/future-improvements.ms): A discussion of potential enhancements, such as adopting a GitOps workflow with ArgoCD, and implementing a more robust testing and monitoring strategy.
