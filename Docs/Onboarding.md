@@ -25,10 +25,19 @@ Create dedicated namespaces for the [dev](../Tests/namespace-dev.yaml) and [qa](
 kubectl create namespace dev
 kubectl create namespace qa
 ```
+### 📂 Create Persistent Volume Claims for both dev and qa namespaces:
+A PVC is needed in each namespace to provide a shared workspace for the pipeline tasks. The git-clone-task will clone the repository into this volume, and subsequent tasks will use it to access the code.
+- [dev-pvc](../pvc-dev.yaml)
+- [qa-pvc](../pvc-qa.yaml)
+
+Note: The PVC is then attached to the PipelineRun via the workspace field, allowing all tasks within the pipeline to share the same persistent storage.
 
 ### 🔑 Create Docker Registry Secrets
 
-Create secrets in both [dev](../Tests/docker-registry-secret-dev.yaml) and [qa](../Tests/docker-registry-secret-qa.yaml) namespaces to allow Tekton to push and pull images from the registry:
+Create secrets in both the namespaces to allow Tekton to push and pull images from the registry:
+- [docker-registry-secret-dev](../Tests/docker-registry-secret-dev.yaml)
+- [docker-registry-secret-qa](../Tests/docker-registry-secret-qa.yaml)
+  
 ```bash
 # In both dev and qa namespaces
 kubectl create secret docker-registry docker-registry-secret \
