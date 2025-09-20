@@ -2,8 +2,6 @@
 
 Use the following procedures to diagnose and resolve common issues within the CI/CD pipeline.
 
----
-
 ## 🔎 General Troubleshooting Steps
 
 ### 1. ✅ Check GitHub Actions / Webhooks
