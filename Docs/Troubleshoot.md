@@ -33,14 +33,35 @@ Use the following procedures to diagnose and resolve common issues within the CI
 
 Reason:
 
-    The service account (tekton-sa) may lack permissions.
+- The service account (tekton-sa) may lack permissions.
 
-    The Docker registry secret could be incorrect or expired.
+- The Docker registry secret could be incorrect or expired.
 
 Resolution:
 
-    Verify that tekton-sa has the necessary image-pull and push permissions.
+- Verify that tekton-sa has the necessary image-pull and push permissions.
 
-    Check the docker-registry secret to ensure credentials are correct and valid.
+- Check the docker-registry secret to ensure credentials are correct and valid.
 
-    Confirm the image tag is valid and free of illegal characters.
+- Confirm the image tag is valid and free of illegal characters.
+
+---
+### 🚢 deploy-k8s-task failed to deploy the application
+
+Reason:
+
+- Kubernetes manifest errors.
+
+- Insufficient permissions.
+
+- Issues with the Kubernetes cluster itself.
+
+Resolution:
+
+- Validate the syntax of the deployment manifest:
+```bash
+kubectl apply --dry-run=client -f k8s/dev/deployment.yaml
+```
+- Ensure tekton-sa has correct ClusterRole permissions (get, list, create, patch, and update deployments/resources).
+
+- Check the cluster’s status and resource availability.
