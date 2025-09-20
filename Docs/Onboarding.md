@@ -159,6 +159,7 @@ Use ngrok to create a public URL for the EventListener service:
 kubectl port-forward svc/<eventlistener-svc-dev> 8080:8080 -n dev
 ngrok http 8080
 ```
+Note: For a production environment, a more reliable solution such as a cloud load balancer or a publicly accessible Ingress controller with a DNS record would be used.
 ### 🔗 Create GitHub Webhook
 
 In your GitHub repository settings, configure a new webhook:
