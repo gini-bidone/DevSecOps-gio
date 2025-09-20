@@ -110,13 +110,13 @@ The infra team sets up the pipeline for the DEV environment.
 
 ### 🧩 Create Tasks
 
-git-clone-task.yaml: Clones the application repository.
+- git-clone-task.yaml: Clones the application repository.
 
-buildah-task.yaml: Builds the Docker image and pushes it to the registry.
+- buildah-task.yaml: Builds the Docker image and pushes it to the registry.
 
-deploy-k8s-task.yaml: Applies the new image to the Kubernetes deployment.
+- deploy-k8s-task.yaml: Applies the new image to the Kubernetes deployment.
 
-trigger-qa-pipeline-task.yaml: Sends an HTTP POST request to the QA EventListener to trigger the next deployment.
+- trigger-qa-pipeline-task.yaml: Sends an HTTP POST request to the QA EventListener to trigger the next deployment.
 
 ### 🛠 Create Pipeline
 
@@ -128,11 +128,11 @@ Chain the tasks together into a pipeline:
 
 Set up the EventListener, TriggerBinding, and TriggerTemplate to handle the GitHub webhook:
 
-triggerBinding.yaml: Extracts parameters (e.g., branch name, commit hash).
+- triggerBinding.yaml: Extracts parameters (e.g., branch name, commit hash).
 
-triggerTemplate.yaml: Defines the PipelineRun, passing parameters from the binding.
+- triggerTemplate.yaml: Defines the PipelineRun, passing parameters from the binding.
 
-eventListener.yaml: Listens for events, filters push events to the main branch, and validates the secret.
+- eventListener.yaml: Listens for events, filters push events to the main branch, and validates the secret.
 
 3. ### 🧪 Tekton Pipeline and Trigger Setup (QA)
 
@@ -142,21 +142,21 @@ The QA environment mirrors DEV for consistency.
 
 Create identical manifests for QA:
 
-git-clone-task-qa.yaml
+- git-clone-task-qa.yaml
 
-buildah-build-qa.yaml
+- buildah-build-qa.yaml
 
-deploy-k8s-qa.yaml
+- deploy-k8s-qa.yaml
 
 📡 Create QA EventListener
 
 Configure separate EventListener, TriggerBinding, and TriggerTemplate for QA:
 
-eventlistener-qa.yaml
+- eventlistener-qa.yaml
 
-triggerbinding-qa.yaml
+- triggerbinding-qa.yaml
 
-triggertemplate-qa.yaml
+- triggertemplate-qa.yaml
 
 This EventListener is triggered by the trigger-qa-pipeline-task in the DEV pipeline.
 
