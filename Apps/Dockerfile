@@ -1,6 +1,7 @@
+
 # Use a lightweight NGINX image
 FROM nginx:alpine
-
+WORKDIR /Apps
 # Copy HTML into NGINX default folder
 COPY src /usr/share/nginx/html
 
