@@ -52,9 +52,9 @@ A dedicated service account, tekton-sa, is needed for the Tekton pipelines in bo
 kubectl create serviceaccount tekton-sa --namespace=dev
 kubectl create serviceaccount tekton-sa --namespace=qa
 ```
-Attach the Docker registry secret to the tekton-sa service account in both the namespaces for image pull and push
-[tekton-sa-dev](../Tests/tekton-sa-dev.yaml)
-[tekton-sa-qa](../Tests/tekton-sa-qa.yaml)
+Attach the Docker registry secret to the tekton-sa service account in both the namespaces for image pull and push:
+- [tekton-sa-dev](../Tests/tekton-sa-dev.yaml)
+- [tekton-sa-qa](../Tests/tekton-sa-qa.yaml)
 ### 🔒 Create Roles and Bindings
 
 Define the necessary permissions for tekton-sa:
@@ -65,10 +65,10 @@ Bind the ClusterRole to the ServiceAccount in both namespaces
 
 Role and RoleBinding: For namespace-specific permissions (e.g., creating and patching deployments).
 Example Role and RoleBinding for managing deployments:
-[tekton-triggers-role-dev](../Tests/tekton-triggers-role-dev.yaml)
-[tekton-triggers-rolebinding-dev](../Tests/tekton-triggers-rolebinding-dev.yaml)
-[tekton-triggers-role-qa](../Tests/tekton-triggers-role-qa.yaml)
-[tekton-triggers-rolebinding-qa](../Tests/tekton-triggers-rolebinding-qa.yaml)
+- [tekton-triggers-role-dev](../Tests/tekton-triggers-role-dev.yaml)
+- [tekton-triggers-rolebinding-dev](../Tests/tekton-triggers-rolebinding-dev.yaml)
+- [tekton-triggers-role-qa](../Tests/tekton-triggers-role-qa.yaml)
+- [tekton-triggers-rolebinding-qa](../Tests/tekton-triggers-rolebinding-qa.yaml)
 
 ### 🌐 Install Ingress Controller
 
