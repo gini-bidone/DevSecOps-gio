@@ -79,13 +79,6 @@ Example Role and RoleBinding for managing deployments:
 - [tekton-triggers-role-qa](../Tests/tekton-triggers-role-qa.yaml)
 - [tekton-triggers-rolebinding-qa](../Tests/tekton-triggers-rolebinding-qa.yaml)
 
-### 🌐 Install Ingress Controller
-
-To expose the application, [install an Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) (e.g., Nginx Ingress Controller):
-```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/kind/deploy.yaml
-```
-Note: The installation command may vary based on your cluster type.
 
 ### 📦 Install Tekton Components
 Install Tekton Pipelines and Triggers:
@@ -178,3 +171,36 @@ In your GitHub repository settings, configure a new webhook:
 - Secret Token: Paste the generated secret token.
 
 - Events: Select only Pushes to trigger the pipeline.
+
+### 🌐 Install Ingress Controller
+
+To expose the application, [install an Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) (e.g., Nginx Ingress Controller):
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/kind/deploy.yaml
+```
+Check if the ingress-controller pods are up and running:
+```bash
+kubectl get pods -n ingress-nginx
+```
+Note: The installation command may vary based on your cluster type.
+
+### 🔗 Create the application service
+The Service is a fundamental Kubernetes resource that provides a stable, internal IP address and DNS name for your application. It acts as an abstraction layer, routing traffic to a set of pods without needing to know their individual, dynamic IP addresses.
+- [service-dev](../service-dev.yaml)
+- [service-qa](../service-qa.yaml)
+  
+(Note: The installation command may vary based on your cluster type.)
+### 🔗 Create the Ingress Manifest
+An Ingress resource is crucial for exposing the application to external traffic in a Kubernetes cluster. It works with an Ingress Controller (like NGINX) to route external requests to the correct service within the cluster. Once the Ingress and its associated Service are in place, they act as a stable entry point for the application.
+- [ingress-dev](../ingress-dev.yaml)
+- [ingress-qa](../ingress-qa.yaml)
+
+Note: The Service and Ingress are part of the initial setup and do not need to be created or updated with every new application deployment. They provide a stable, unchanging endpoint, allowing the CI/CD pipeline to focus solely on updating the application's Deployment manifest with the new image.
+
+### 🔗 Viewing the Application
+The final step is to use the Ingress URL to verify that the application is running correctly.
+
+- Find the Ingress URL: The URL is the host name defined in the Ingress manifest, such as dev.custom-url.com or qa.custom-url.com.
+- For local testing: To access the application from a local machine, the /etc/hosts file must be updated to resolve the custom domain to the IP address of the Ingress controller. The IP can be obtained by port-forwarding the Nginx Ingress controller's service.
+- For enterprise environments: In production or enterprise setups, DNS records are typically configured to point the Ingress hostnames to the public IP address of the Ingress controller or a load balancer, providing a more reliable way for users to access the application.
+
