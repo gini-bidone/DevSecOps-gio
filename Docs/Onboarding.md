@@ -188,8 +188,8 @@ ngrok http 8080
 
 In your GitHub repository settings, configure a new webhook:
 
-Payload URL: Public URL provided by ngrok.
+- Payload URL: Public URL provided by ngrok.
 
-Secret Token: Paste the generated secret token.
+- Secret Token: Paste the generated secret token.
 
-Events: Select only Pushes to trigger the pipeline.
+- Events: Select only Pushes to trigger the pipeline.
