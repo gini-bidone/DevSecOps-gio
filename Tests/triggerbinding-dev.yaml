@@ -1,0 +1,15 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: github-push-binding
+  namespace: dev
+spec:
+  params:
+  - name: revision
+    value: $(body.head_commit.id)
+  - name: url
+    value: $(body.repository.clone_url)
+  - name: event-type
+    value: $(header.x-github-event)
+  - name: listener-url
+    value: http://el-eventlistener-qa.qa.svc.cluster.local

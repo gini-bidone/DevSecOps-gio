@@ -1,9 +1,9 @@
-# tekton-sa.yaml
 apiVersion: v1
+imagePullSecrets:
+- name: docker-registry-gio
 kind: ServiceAccount
 metadata:
   name: tekton-sa
   namespace: dev
 secrets:
-  - name: docker-registry-gio
-
+- name: docker-registry-gio

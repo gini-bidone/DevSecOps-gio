@@ -1,0 +1,17 @@
+kind: Role
+metadata:
+  name: tekton-triggers-role
+  namespace: qa
+rules:
+- apiGroups:
+  - triggers.tekton.dev
+  resources:
+  - triggers
+  - interceptors
+  - eventlisteners
+  - triggerbindings
+  - triggertemplates
+  verbs:
+  - get
+  - list
+  - watch

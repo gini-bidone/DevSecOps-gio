@@ -1,0 +1,45 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: git-clone-task
+  namespace: dev
+spec:
+  params:
+  - description: Git repo URL
+    name: url
+    type: string
+  - default: main
+    description: Git branch
+    name: branch
+    type: string
+  - description: Git commit, tag, or specific revision to clone
+    name: revision
+    type: string
+  - default: "true"
+    description: Delete contents before cloning
+    name: deleteExisting
+    type: string
+  results:
+  - description: The commit SHA that was cloned
+    name: commit
+    type: string
+  steps:
+  - computeResources: {}
+    image: alpine/git
+    name: clone
+    script: |
+      #!/bin/sh
+      set -e
+      echo "Cloning repo $(params.url) at $(params.branch)"
+      if [ "$(ls -A /workspace/repo 2>/dev/null)" ]; then
+        echo "Cleaning existing contents in /workspace/repo"
+        rm -rf /workspace/repo/* /workspace/repo/.[!.]* /workspace/repo/..?*
+      fi
+      git clone --branch $(params.branch) $(params.url) $(workspaces.repo.path)
+      cd $(workspaces.repo.path)
+      echo -n $(git rev-parse HEAD) > $(results.commit.path)
+      ls -la $(workspaces.repo.path)
+      echo $(workspaces.repo.path)
+  workspaces:
+  - description: Workspace to clone the repo into
+    name: repo

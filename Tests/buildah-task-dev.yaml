@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: buildah-task
+  namespace: dev
+spec:
+  params:
+  - description: Image name with tag
+    name: image
+    type: string
+  - description: The Git commit SHA to use as the image tag
+    name: revision
+    type: string
+  steps:
+  - computeResources: {}
+    env:
+    - name: STORAGE_DRIVER
+      value: vfs
+    image: quay.io/buildah/stable
+    name: build
+    script: |
+      #!/bin/sh
+      set -e
+      echo "Listing repo contents:"
+      ls -la $(workspaces.repo.path)
+      echo "Building image $(params.image):$(params.revision)"
+      buildah bud -f $(workspaces.repo.path)/Apps/Dockerfile -t $(params.image):$(params.revision) $(workspaces.repo.path)
+      echo "Pushing image $(params.image):$(params.revision)"
+      buildah push --tls-verify=false $(params.image):$(params.revision)
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /var/lib/containers
+      name: varlibcontainers
+  volumes:
+  - emptyDir: {}
+    name: varlibcontainers
+  workspaces:
+  - description: Workspace containing the cloned repo
+    name: repo
