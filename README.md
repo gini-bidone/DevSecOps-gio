@@ -63,4 +63,4 @@ The [Docs](Docs) folder contains detailed documentation to explain the solution'
 
 - [Troubleshooting.md](Docs/Troubleshooting.md) A guide to diagnosing and resolving common issues that may arise within the setup and pipeline, with practical tips for debugging failed runs.
 
-- [Future-improvements.md](Docs/Future-improvements.ms): A discussion of potential enhancements, such as adopting a GitOps workflow with ArgoCD, and implementing a more robust testing and monitoring strategy.
+- [Future-improvements.md](Docs/Future-improvements.md): A discussion of potential enhancements, such as adopting a GitOps workflow with ArgoCD, and implementing a more robust testing and monitoring strategy.
