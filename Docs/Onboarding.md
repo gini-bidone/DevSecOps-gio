@@ -15,6 +15,8 @@ For various setup options, refer the [official documentation](https://kubernetes
 
 Note: This implementation is based on a **Kind** cluster - a tool for running local Kubernetes clusters
 
+---
+
 ## 1. 🛠 Initial Cluster Setup
 
 The first steps are performed by the **infra team** to prepare the Kubernetes cluster for the new service.
@@ -52,8 +54,7 @@ kubectl create secret docker-registry docker-registry-secret \
   --docker-password=<your-docker-token> \
   --namespace=qa
 ```
-
-
+---
 ### 👤 Create Service Accounts
 
 A dedicated service account, tekton-sa, is needed for the Tekton pipelines in both dev and qa namespaces:
@@ -78,7 +79,7 @@ Example Role and RoleBinding for managing deployments:
 - [tekton-triggers-rolebinding-dev](../Tests/tekton-triggers-rolebinding-dev.yaml)
 - [tekton-triggers-role-qa](../Tests/tekton-triggers-role-qa.yaml)
 - [tekton-triggers-rolebinding-qa](../Tests/tekton-triggers-rolebinding-qa.yaml)
-
+---
 
 ### 📦 Install Tekton Components
 Install Tekton Pipelines and Triggers:
@@ -87,7 +88,7 @@ Install Tekton Pipelines and Triggers:
 kubectl apply -f https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
 kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
 ```
-
+----
 2. ### 🚀 Tekton Pipeline and Trigger Setup (DEV)
 
 The infra team sets up the pipeline for the DEV environment.
