@@ -1,6 +1,6 @@
 # Automated Deployment Workflow for JavaScript Web Application
 
-This workflow automates the deployment of a simple JavaScript web application to a **Kubernetes cluster using **Tekton Pipelines**, designed with **security**, **traceability**, and **automation** as core principles.
+This workflow automates the deployment of a simple JavaScript web application to a **Kubernetes cluster** using **Tekton Pipelines**, designed with **security**, **traceability**, and **automation** as core principles.
 
 - This setup is implemented on a local, single-node Kind cluster, serving as a proving ground for the CI/CD logic.
 - The underlying pipeline logic is platform-agnostic, meaning the same process can be seamlessly adapted for any other Kubernetes cluster, be it in the cloud (e.g., EKS, GKE, AKS) or on-premise.
