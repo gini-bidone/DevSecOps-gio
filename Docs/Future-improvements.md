@@ -1,4 +1,4 @@
-Future Considerations and improvements
+Future Considerations and Improvements
 ----
 
 1. ### 🔗 Repository Strategy and Mono-repo/Poly-repo Logic
