@@ -55,12 +55,12 @@ The project is organized to clearly separate application code from infrastructur
 ```
 Working infrastructure-as-code files are placed under the **Tests** folder
 ### 📝 Project Documentation
-The [Docs](../Docs) folder contains detailed documentation to explain the solution's core components and processes.
+The [Docs](Docs) folder contains detailed documentation to explain the solution's core components and processes.
 
-- [Implementation.md](../Docs/Implementation.md): A detailed explanation of the entire CI/CD process, from code commit to application deployment, including how namespace isolation and security measures are handled.
+- [Implementation.md](Docs/Implementation.md): A detailed explanation of the entire CI/CD process, from code commit to application deployment, including how namespace isolation and security measures are handled.
 
-- [Onboarding.md](../Docs/Onboarding.md): Steps for New Services: A step-by-step implementation guide of the entire setup, outlining the responsibilities of both development and infrastructure teams.
+- [Onboarding.md](Docs/Onboarding.md): Steps for New Services: A step-by-step implementation guide of the entire setup, outlining the responsibilities of both development and infrastructure teams.
 
-- [Troubleshooting.md](../Docs/Troubleshooting.md) A guide to diagnosing and resolving common issues that may arise within the setup and pipeline, with practical tips for debugging failed runs.
+- [Troubleshooting.md](Docs/Troubleshooting.md) A guide to diagnosing and resolving common issues that may arise within the setup and pipeline, with practical tips for debugging failed runs.
 
-- [Future-improvements.md](../Docs/Future-improvements.ms): A discussion of potential enhancements, such as adopting a GitOps workflow with ArgoCD, and implementing a more robust testing and monitoring strategy.
+- [Future-improvements.md](Docs/Future-improvements.ms): A discussion of potential enhancements, such as adopting a GitOps workflow with ArgoCD, and implementing a more robust testing and monitoring strategy.
