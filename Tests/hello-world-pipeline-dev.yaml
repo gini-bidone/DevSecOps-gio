@@ -1,0 +1,80 @@
+apiVersion: v1
+items:
+- apiVersion: tekton.dev/v1
+  kind: Pipeline
+  metadata:
+    name: hello-world-pipeline
+    namespace: dev
+  spec:
+    params:
+    - name: revision
+      type: string
+    - description: The URL of the QA EventListener to trigger.
+      name: listener-url
+      type: string
+    - description: The Git repository URL.
+      name: url
+      type: string
+    tasks:
+    - name: clone-repo
+      params:
+      - name: url
+        value: $(params.url)
+      - name: revision
+        value: $(params.revision)
+      - name: branch
+        value: main
+      - name: deleteExisting
+        value: "true"
+      taskRef:
+        kind: Task
+        name: git-clone-task
+      workspaces:
+      - name: repo
+        workspace: shared-workspace
+    - name: build-image
+      params:
+      - name: image
+        value: docker.io/ginilekshmiao/hello-world-web
+      - name: revision
+        value: $(tasks.clone-repo.results.commit)
+      runAfter:
+      - clone-repo
+      taskRef:
+        kind: Task
+        name: buildah-task
+      workspaces:
+      - name: repo
+        workspace: shared-workspace
+    - name: deploy
+      params:
+      - name: image
+        value: docker.io/ginilekshmiao/hello-world-web
+      - name: revision
+        value: $(tasks.clone-repo.results.commit)
+      runAfter:
+      - build-image
+      taskRef:
+        kind: Task
+        name: deploy-k8s
+      workspaces:
+      - name: repo
+        workspace: shared-workspace
+    - name: trigger-qa
+      params:
+      - name: listener-url
+        value: $(params.listener-url)
+      - name: url
+        value: $(params.url)
+      - name: revision
+        value: $(tasks.clone-repo.results.commit)
+      runAfter:
+      - deploy
+      taskRef:
+        kind: Task
+        name: trigger-qa-pipeline
+    workspaces:
+    - name: shared-workspace
+kind: List
+metadata:
+  resourceVersion: ""

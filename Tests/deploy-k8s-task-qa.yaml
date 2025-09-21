@@ -1,0 +1,39 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: deploy-k8s
+  namespace: qa
+spec:
+  params:
+  - description: Image name to deploy
+    name: image
+    type: string
+  - description: The Git commit SHA to use as the image tag
+    name: revision
+    type: string
+  steps:
+  - computeResources: {}
+    image: bitnamilegacy/kubectl:1.33.4-debian-12-r0
+    name: deploy
+    script: |
+      #!/bin/sh
+      set -e
+      FULL_IMAGE_NAME=$(params.image):$(params.revision)
+      echo "Updating deployment with image ${FULL_IMAGE_NAME}..."
+
+      # Replace image in deployment.yaml
+      ls -lt $(workspaces.repo.path)/k8s/dev
+      sed -i "s|image: .*|image: ${FULL_IMAGE_NAME}|" $(workspaces.repo.path)/k8s/qa/deployment.yaml
+
+      # Apply manifests
+      kubectl apply -f $(workspaces.repo.path)/k8s/qa/deployment.yaml
+      kubectl apply -f $(workspaces.repo.path)/k8s/qa/service.yaml
+
+      echo "Deployment applied successfully!"
+    securityContext:
+      privileged: false
+      runAsGroup: 0
+      runAsUser: 0
+  workspaces:
+  - description: Workspace containing deployment manifests
+    name: repo

@@ -1,0 +1,9 @@
+apiVersion: v1
+imagePullSecrets:
+- name: docker-registry-gio
+kind: ServiceAccount
+metadata:
+  name: tekton-sa
+  namespace: qa
+secrets:
+- name: docker-registry-gio

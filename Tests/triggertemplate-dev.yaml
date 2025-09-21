@@ -1,0 +1,39 @@
+apiVersion: v1
+items:
+- apiVersion: triggers.tekton.dev/v1beta1
+  kind: TriggerTemplate
+  metadata:
+    name: github-pr-template
+    namespace: dev
+  spec:
+    params:
+    - description: The git revision from the webhook.
+      name: revision
+    - description: The git repository URL.
+      name: url
+    - description: The URL of the QA EventListener.
+      name: listener-url
+    resourcetemplates:
+    - apiVersion: tekton.dev/v1
+      kind: PipelineRun
+      metadata:
+        generateName: hello-world-run-
+      spec:
+        params:
+        - name: revision
+          value: $(tt.params.revision)
+        - name: url
+          value: $(tt.params.url)
+        - name: listener-url
+          value: $(tt.params.listener-url)
+        pipelineRef:
+          name: hello-world-pipeline
+        taskRunTemplate:
+          serviceAccountName: tekton-sa
+        workspaces:
+        - name: shared-workspace
+          persistentVolumeClaim:
+            claimName: tekton-workspace-pvc
+kind: List
+metadata:
+  resourceVersion: ""

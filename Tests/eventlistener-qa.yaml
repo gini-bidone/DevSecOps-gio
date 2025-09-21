@@ -1,0 +1,18 @@
+apiVersion: v1
+items:
+- apiVersion: triggers.tekton.dev/v1beta1
+  kind: EventListener
+  metadata:
+    name: eventlistener-qa
+    namespace: qa
+  spec:
+    namespaceSelector: {}
+    resources: {}
+    serviceAccountName: tekton-sa
+    triggers:
+    - bindings:
+      - kind: TriggerBinding
+        ref: dev-trigger-binding
+      name: dev-to-qa-trigger
+      template:
+        ref: pipeline-qa-template

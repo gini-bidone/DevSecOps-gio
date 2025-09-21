@@ -1,13 +1,36 @@
-apiVersion: triggers.tekton.dev/v1beta1
-kind: EventListener
-metadata:
-  name: github-event-listener-dev
-  namespace: dev
-spec:
-  serviceAccountName: tekton-sa
-  triggers:
-    - name: github-push
-      bindings:
-        - ref: github-push-binding
+apiVersion: v1
+items:
+- apiVersion: triggers.tekton.dev/v1beta1
+  kind: EventListener
+  metadata:
+    name: github-event-listener-dev
+    namespace: dev
+  spec:
+    namespaceSelector: {}
+    resources: {}
+    serviceAccountName: tekton-sa
+    triggers:
+    - bindings:
+      - kind: TriggerBinding
+        ref: github-push-binding
+      interceptors:
+      - params:
+        - name: secretRef
+          value:
+            secretKey: secretToken
+            secretName: github-webhook-secret
+        - name: eventTypes
+          value:
+          - push
+        ref:
+          kind: ClusterInterceptor
+          name: github
+      - params:
+        - name: filter
+          value: body.ref == 'refs/heads/main'
+        ref:
+          kind: ClusterInterceptor
+          name: cel
+      name: dev-pipeline-trigger
       template:
         ref: github-pr-template

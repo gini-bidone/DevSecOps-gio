@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: trigger-qa-pipeline
+  namespace: dev
+spec:
+  params:
+  - description: The URL of the QA EventListener.
+    name: listener-url
+    type: string
+  - description: The URL of the Git repository.
+    name: url
+    type: string
+  - description: The Git revision to deploy.
+    name: revision
+    type: string
+  steps:
+  - computeResources: {}
+    image: curlimages/curl:latest
+    name: send-event
+    script: |
+      #!/usr/bin/env sh
+      set -e
+      echo "params.url is $(params.url) pipeline-revision is $(params.revision)"
+      echo "Sending deployment trigger to QA..."
+      PAYLOAD=$(printf '{"url":"%s","revision":"%s"}' \
+      "$(params.url)" "$(params.revision)")
+      echo "DEBUG JSON: $PAYLOAD"
+      # Use a simple curl command to POST to the EventListener.
+      curl -v -X POST "$(params.listener-url):8080" \
+      -H "Content-Type: application/json" \
+      -d "$PAYLOAD"

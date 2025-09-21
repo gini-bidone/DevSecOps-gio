@@ -1,0 +1,11 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: dev-trigger-binding
+  namespace: qa
+spec:
+  params:
+  - name: url
+    value: $(body.url)
+  - name: revision
+    value: $(body.revision)

@@ -1,0 +1,22 @@
+kind: Service
+metadata:
+  name: hello-world
+  namespace: qa
+spec:
+  clusterIP: xxx
+  clusterIPs:
+  - xxx
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31429
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hello-world
+  sessionAffinity: None
+  type: NodePort
