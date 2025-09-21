@@ -2,8 +2,9 @@ Future Considerations and Improvements
 ----
 
 1. ### 🔗 Repository Strategy and Mono-repo/Poly-repo Logic
-**Poly-repo Model (App and Infra Repos Separated)**: The current setup of having application code and Kubernetes manifests in a single repository is efficient for this scale. However, for larger organizations, it's beneficial to separate the two. A dedicated infrastructure repository would contain all Kubernetes manifests and Tekton pipelines, managed by the infra team. The application repository would hold just the source code. This enforces a stricter separation of concerns and access control. A change in the app repo would trigger a build pipeline that pushes a new image to the registry. The infra repo's pipeline would then be triggered to deploy that new image, perhaps via an automated version update.
-Benefits of Poly-repo: This model improves security, as developers have no access to infrastructure code. It also allows for independent versioning and release cycles for both the application and its infrastructure.
+- **Poly-repo Model (App and Infra Repos Separated)**: The current setup of having application code and Kubernetes manifests in a single repository is efficient for this scale. However, for larger organizations, it's beneficial to separate the two. A dedicated infrastructure repository would contain all Kubernetes manifests and Tekton pipelines, managed by the infra team. The application repository would hold just the source code. This enforces a stricter separation of concerns and access control. A change in the app repo would trigger a build pipeline that pushes a new image to the registry. The infra repo's pipeline would then be triggered to deploy that new image, perhaps via an automated version update.
+
+- **Benefits of Poly-repo**: This model improves security, as developers have no access to infrastructure code. It also allows for independent versioning and release cycles for both the application and its infrastructure.
 
 2. ### 🔗 CI/CD Pipeline Enhancements
 - **Testing and Security Integration**: The current pipeline builds and deploys. A more mature pipeline would include automated testing and security checks.
@@ -11,6 +12,7 @@ Benefits of Poly-repo: This model improves security, as developers have no acces
    - **Image Scanning**: Integrate a security scanner (e.g., Trivy, Clair) to scan the Docker image for known vulnerabilities before it's pushed to the registry. This is a critical DevSecOps practice.
 - **Environment-Specific Configuration**: Instead of identical deployment manifests, externalize environment-specific configurations (e.g., API endpoints, database connection strings) using ConfigMaps and Secrets within Kubernetes. The pipeline would dynamically inject these values during deployment, preventing sensitive information from being stored in the repository.
 - **Rollback Strategy**: While a rolling update is a good start, a complete solution includes an automated rollback capability. The pipeline could be configured to automatically roll back to the previous successful deployment if a new deployment fails a post-deployment health check.
+- **Tekton Built-in Features**: Enhance the pipeline by leveraging built-in features for automated management and security. Secure the software supply chain with **Tekton Chains** to sign and verify images. Improve efficiency by using a **Tekton Catalog** for reusable tasks and configure the **Tekton Pruner** to automatically clean up old resources, preventing cluster bloat and more.
 
 3. ### 🔗 Monitoring and Observability
 - **Logging and Metrics**: Implement a robust monitoring solution.
