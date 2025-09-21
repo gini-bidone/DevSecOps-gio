@@ -1,4 +1,3 @@
-
 ## Automated CI/CD Pipeline for Kubernetes
 This project implements an automated CI/CD pipeline for a simple web application, adhering to key DevOps principles like security, traceability, and hands-off deployment. The solution uses Tekton Pipelines on a Kubernetes cluster to automate the build, test, and deployment process from a Git merge.
 
@@ -15,6 +14,13 @@ The solution's workflow is triggered by a pull request merged to the main branch
    - Deploys the application to the DEV Kubernetes namespace.
 - Automated Promotion: Upon a successful DEV deployment, a final task in the DEV pipeline sends an HTTP request to the QA EventListener.
 - CI/CD Pipeline (QA): The QA pipeline is triggered, which performs the same deployment steps, promoting the validated application to the QA environment.
+
+### 📂 Architecture Diagram
+
+This diagram outlines a secure, automated CI/CD pipeline that uses Tekton to deploy applications to a Kubernetes cluster, from Git push to final application delivery. - [Architecture Diagram](Docs/Architecture-Diagram.md)
+
+<img width="2829" height="1570" alt="image" src="https://github.com/user-attachments/assets/0e933e36-cbcd-47c0-a252-a3cfa87f4ccc" />
+
 
 ### 📂 Repository Structure
 The project is organized to clearly separate application code from infrastructure configuration, with access control enforced by CODEOWNERS and branch protection.
