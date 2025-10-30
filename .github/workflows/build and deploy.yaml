@@ -1,0 +1,57 @@
+name: Build and Deploy to AKS via ArgoCD
+
+on:
+  push:
+    branches:
+      - main  # or your branch
+
+permissions:
+  id-token: write  # Required for OIDC login
+  contents: write  # To push updated YAML
+  actions: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # --- OIDC Login to Azure ---
+      - name: Azure Login using OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # --- Login to ACR ---
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{ secrets.ACR_NAME }}
+
+      # --- Build and Push Image ---
+      - name: Build and Push Image
+        run: |
+          IMAGE_NAME=${{ secrets.ACR_NAME }}.azurecr.io/myapp
+          IMAGE_TAG=${{ github.sha }}
+          az acr build --registry ${{ secrets.ACR_NAME }} -f Apps/Dockerfile . --image myapp:${IMAGE_TAG}
+        # --- podman build -t $IMAGE_NAME:$IMAGE_TAG ./Apps ---
+        # --- podman push $IMAGE_NAME:$IMAGE_TAG ---
+
+      # --- Update deployment YAML ---
+      - name: Update deployment image tag
+        run: |
+          IMAGE_NAME=${{ secrets.ACR_NAME }}.azurecr.io/myapp
+          IMAGE_TAG=${{ github.sha }}
+          sed -i "s|\(image:\s*\).*|\1$IMAGE_NAME:$IMAGE_TAG|" k8s/base/deployment.yaml
+
+      # --- Commit and push changes back to repo ---
+      - name: Commit and Push updated image tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add k8s/base/deployment.yaml
+          git commit -m "Update image tag to $IMAGE_TAG"
+          git push
