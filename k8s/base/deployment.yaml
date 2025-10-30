@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: hello-world
-          image: ginilekshmiao/hello-world-web:latest
+          image: gioakscontainerregistry-huhbhnhsaacsf3gq.azurecr.io/myapp:v1
           ports:
             - containerPort: 80
 
