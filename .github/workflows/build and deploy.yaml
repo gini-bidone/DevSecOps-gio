@@ -34,15 +34,15 @@ jobs:
       # --- Build and Push Image ---
       - name: Build and Push Image
         run: |
-          IMAGE_NAME=${{ secrets.ACR_NAME }}.azurecr.io/myapp
+          IMAGE_NAME=gioakscontainerregistry.azurecr.io/myapp
           IMAGE_TAG=${{ github.sha }}
-          az acr build --registry ${{ secrets.ACR_NAME }} -f Apps/Dockerfile . --image myapp:${IMAGE_TAG}
+          az acr build --registry gioakscontainerregistry -f Apps/Dockerfile . --image myapp:${IMAGE_TAG}
         # --- podman build -t $IMAGE_NAME:$IMAGE_TAG ./Apps ---
         # --- podman push $IMAGE_NAME:$IMAGE_TAG ---
       # --- Update deployment YAML ---
       - name: Update deployment image tag
         run: |
-          IMAGE_NAME=${{ secrets.ACR_NAME }}.azurecr.io/myapp
+          IMAGE_NAME=gioakscontainerregistry.azurecr.io/myapp
           IMAGE_TAG=${{ github.sha }}
           sed -i "s|\(image:\s*\).*|\1$IMAGE_NAME:$IMAGE_TAG|" k8s/base/deployment.yaml
 
