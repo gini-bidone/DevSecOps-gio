@@ -31,6 +31,11 @@ jobs:
           echo "Logged into Azure successfully!"
           az account show --output table
 
+      - name: Set subscription explicitly
+        run: |
+          az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          az account show --output table
+
       # --- Login to ACR ----
       #- name: Login to Azure Container Registry
         #run: |
