@@ -44,13 +44,19 @@ jobs:
       # --- Build and Push Image ---
       - name: Debug Azure info
         run: |
-          echo "Client ID: ${client-id:0:5}******"
-          echo "Tenant ID: ${tenant_id:0:5}******"
-          echo "Subscription ID: ${subscription_id:0:5}******"
-          echo "ACR Name: ${{ secrets.ACR_NAME }}"
-          echo "Resource Group: $RESOURCE_GROUP"
-          echo "Image Name: $IMAGE_NAME"
-          az account show
+          echo "===== DEBUGGING AZURE CONTEXT ====="
+          echo "Client ID (first 6 chars): ${AZURE_CLIENT_ID:0:6}******"
+          echo "Tenant ID (first 6 chars): ${AZURE_TENANT_ID:0:6}******"
+          echo "Subscription ID (first 6 chars): ${AZURE_SUBSCRIPTION_ID:0:6}******"
+          echo "ACR Name: $ACR_NAME"
+          echo ""
+          echo "Logged-in Azure account:"
+          az account show --output table || echo "⚠️ az account show failed"
+          echo ""
+          echo "Listing ACR registry in current subscription..."
+          az acr show --name $ACR_NAME --output table || echo "⚠️ Failed to find ACR"
+          echo "====================================="
+
       - name: Build and Push Image
         run: |
           IMAGE_NAME=myapp
