@@ -72,7 +72,9 @@ jobs:
         run: |
           IMAGE_NAME=myapp
           IMAGE_TAG=${{ github.sha }}
-          sed -i "s|\(image:\s*\).*|\1$IMAGE_NAME:$IMAGE_TAG|" k8s/base/deployment.yaml
+          sed -i "s|\(gioakscontainerregistry.azurecr.io/\)[^:]\+:\([^ ]\+\)|\1$IMAGE_NAME:$IMAGE_TAG|" k8s/base/deployment.yaml
+        # --- sed -i "s|\(image:\s*\).*|\1$IMAGE_NAME:$IMAGE_TAG|" k8s/base/deployment.yaml ---
+      
 
       # --- Commit and push changes back to repo ---
       - name: Commit and Push updated image tag
