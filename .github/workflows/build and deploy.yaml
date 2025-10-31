@@ -42,6 +42,15 @@ jobs:
           #az acr login --name gioakscontainerregistry
 
       # --- Build and Push Image ---
+      - name: Debug Azure info
+        run: |
+          echo "Client ID: ${client-id:0:5}******"
+          echo "Tenant ID: ${tenant_id:0:5}******"
+          echo "Subscription ID: ${subscription_id:0:5}******"
+          echo "ACR Name: ${{ secrets.ACR_NAME }}"
+          echo "Resource Group: $RESOURCE_GROUP"
+          echo "Image Name: $IMAGE_NAME"
+          az account show
       - name: Build and Push Image
         run: |
           IMAGE_NAME=myapp
