@@ -53,12 +53,12 @@ jobs:
           echo "ACR Name: $ACR_NAME"
           echo ""
           echo "Logged-in Azure account:"
+          az acr show --name gioakscontainerregistry --output table
           az account show --output table || echo "⚠️ az account show failed"
           echo ""
           echo "Listing ACR registry in current subscription..."
           az acr show --name gioakscontainerregistry --output table || echo "⚠️ Failed to find ACR"
           echo "====================================="
-          az acr show --name $ACR_NAME --resource-group gio-aks-rs-grp --output table
 
       - name: Build and Push Image
         run: |
