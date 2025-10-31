@@ -58,7 +58,7 @@ jobs:
           echo ""
           echo "Listing ACR registry in current subscription..."
           az acr show --name gioakscontainerregistry --output table || echo "⚠️ Failed to find ACR"
-          echo "====================================="
+          echo "======================================="
 
       - name: Build and Push Image
         run: |
