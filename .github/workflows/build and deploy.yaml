@@ -53,7 +53,7 @@ jobs:
           echo "ACR Name: $ACR_NAME"
           echo ""
           echo "Logged-in Azure account:"
-          az acr show --name gioakscontainerregistry --output table
+          az acr show --name gioakscontainerregistry --resource-group gio-aks-rs-grp --output table
           az account show --output table || echo "⚠️ az account show failed"
           echo ""
           echo "Listing ACR registry in current subscription..."
