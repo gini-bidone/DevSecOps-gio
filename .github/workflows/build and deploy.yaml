@@ -41,7 +41,7 @@ jobs:
       # --- Login to ACR ----
       #- name: Login to Azure Container Registry
         #run: |
-          #az acr login --name gioakscontainerregistry
+          #az acr login --name gioakscontainerregistry 
 
       # --- Build and Push Image ---
       - name: Debug Azure info
