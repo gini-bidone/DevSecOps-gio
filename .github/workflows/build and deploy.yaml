@@ -56,7 +56,7 @@ jobs:
           az account show --output table || echo "⚠️ az account show failed"
           echo ""
           echo "Listing ACR registry in current subscription..."
-          az acr show --name $ACR_NAME --output table || echo "⚠️ Failed to find ACR"
+          az acr show --name gioakscontainerregistry --output table || echo "⚠️ Failed to find ACR"
           echo "====================================="
 
       - name: Build and Push Image
