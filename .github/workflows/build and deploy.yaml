@@ -65,7 +65,7 @@ jobs:
           IMAGE_NAME=myapp
           IMAGE_TAG=${{ github.sha }}
           az acr build --registry gioakscontainerregistry -f Apps/Dockerfile . --image myapp:${IMAGE_TAG}
-        # --- podman build -t $IMAGE_NAME:$IMAGE_TAG ./Apps ---
+        # --- podman build -t $IMAGE_NAME:$IMAGE_TAG ./Apps ----
         # --- podman push $IMAGE_NAME:$IMAGE_TAG ---
       # --- Update deployment YAML --
       - name: Update deployment image tag
